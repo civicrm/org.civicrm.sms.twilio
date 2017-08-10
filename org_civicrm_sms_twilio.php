@@ -162,9 +162,7 @@ class org_civicrm_sms_twilio extends CRM_SMS_Provider {
           )
         );
       } catch (Exception $e) {
-        $errMsg = $e->getMessage()
-          . ' For more information, see '
-          . $e->getInfo();
+        $errMsg = $e->getMessage();
         return PEAR::raiseError(
           $errMsg,
           $e->getCode(),
