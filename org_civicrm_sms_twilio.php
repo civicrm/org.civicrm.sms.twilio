@@ -150,6 +150,12 @@ class org_civicrm_sms_twilio extends CRM_SMS_Provider {
       $from = '';
       if (array_key_exists('From', $this->_providerInfo['api_params'])) {
         $from = $this->_providerInfo['api_params']['From'];
+        if (preg_match('/\|/', $from)) {
+          $froms = explode('|', $from);
+          $key = array_rand($froms);
+          $from = $froms[$key];
+        }
+
       }
 
       try {
