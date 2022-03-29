@@ -160,6 +160,19 @@ class org_civicrm_sms_twilio extends CRM_SMS_Provider {
       }
 
       try {
+        /*
+         * Allow other modules to modify the SMS before sending
+         */
+        CRM_Utils_Hook::singleton()->invoke(
+          ['header', 'from', 'message'],
+          $header,
+          $from,
+          $message,
+          CRM_Utils_Hook::$_nullObject,
+          CRM_Utils_Hook::$_nullObject,
+          CRM_Utils_Hook::$_nullObject,
+          'civicrm_twilio_alterSMS');
+
         $twilioMessage = $this->_twilioClient->messages->create(
           $header['To'],
           array(
